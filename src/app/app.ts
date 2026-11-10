@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -17,18 +17,18 @@ export class App {
   loginMessage = '';
   showToast = signal(false);
 
- login() {
-  if (this.email.trim() === '' || this.password.trim() === '') {
-    this.loginMessage = 'Please enter your email and password.';
+ login(form: NgForm) {
+  if (form.invalid) {
+    this.loginMessage = 'Please enter a valid email and password.';
   } else {
-    this.loginMessage = 'Form completed! Ready for validation.';
+    this.loginMessage = 'Form completed! Ready for authentication.';
   }
 
- this.showToast.set(true);
+  this.showToast.set(true);
 
-setTimeout(() => {
-  this.showToast.set(false);
-}, 2000);
+  setTimeout(() => {
+    this.showToast.set(false);
+  }, 2000);
 }
 
 

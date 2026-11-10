@@ -7,7 +7,7 @@
 
     <p class="subtitle">{{subtitle}}</p>
 
-    <form>
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -16,6 +16,8 @@
           name="email"
           placeholder="Enter your email"
           [(ngModel)]="email"
+          required
+          email
         />
       </div>
 
@@ -27,10 +29,13 @@
           name="password"
           placeholder="Enter your password"
           [(ngModel)]="password" // sends the input value to your TypeScript property
+          required
+          minlength="8"
+          pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}"
         />
       </div>
 
-      <button type="button" (click)="login()">Login</button>
+      <button type="submit">Login</button>
       @if (showToast()) {
   <div class="toast" role="status">
     {{ loginMessage }}
